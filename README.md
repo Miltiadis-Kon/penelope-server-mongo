@@ -1,1 +1,0 @@
-# penelope-server-mongo
