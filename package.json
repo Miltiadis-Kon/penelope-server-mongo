@@ -1,0 +1,33 @@
+{
+  "name": "penelope-server-mongo",
+  "version": "1.0.0",
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miltiadis-Kon/penelope-server-mongo.git"
+  },
+  "keywords": [
+    "penelope",
+    "react",
+    "express",
+    "mongo"
+  ],
+  "author": "Miltiadis Kontos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Miltiadis-Kon/penelope-server-mongo/issues"
+  },
+  "homepage": "https://github.com/Miltiadis-Kon/penelope-server-mongo#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
