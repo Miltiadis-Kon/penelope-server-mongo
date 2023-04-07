@@ -4,8 +4,15 @@ const app = express(); // create express app
 
 const taskRouter = require("./routes/tasks-routes");
 
+
+app.use(bodyParser.json()); // parse requests of content-type - application/json
 app.use("/api/tasks/", taskRouter);
 //error handling
+app.use((req, res, next) => {
+  const error = new HttpError("Could not find this route.", 404);
+  throw error;
+}); //only used for API routes that are not defined.
+
 app.use((error, req, res, next) => {
   if (res.headerSent) {
     return next(error);
