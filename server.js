@@ -27,7 +27,7 @@ app.use((error, req, res, next) => {
 //Connect to the database & start the server
 mongoose
   .connect(
-    "mongodb+srv://lms:q1w2e3r4t5@cluster0.sy4ywdt.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://<user>:<password>@cluster0.sy4ywdt.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to database");
