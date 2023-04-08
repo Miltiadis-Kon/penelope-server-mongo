@@ -6,8 +6,8 @@ const taskRouter = require("./routes/tasks-routes");
 const MongoPractice = require("./mongo");
 app.use(bodyParser.json()); // parse requests of content-type - application/json
 
-app.post('/products',MongoPractice.createProduct);
-app.get('/products',MongoPractice.getProducts); 
+app.post("/products", MongoPractice.createProduct);
+app.get("/products", MongoPractice.getProducts);
 
 app.use("/api/tasks/", taskRouter);
 //error handling
