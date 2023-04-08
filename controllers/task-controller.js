@@ -59,31 +59,30 @@ const createTask = async (req, res, next) => {
   res.status(201).json({ task: createdTask }); // return the new task to the client
 };
 const updateTask = async (req, res, next) => {
-  const { title, description } = req.body;
-  const taskID = req.params.taskID;
-  const TaskCollectionDB = await database.collection("tasks").find().toArray();
-  const updatedTask = { ...TaskCollectionDB.find((p) => p.id === taskID) }; //find the task to update and copy it to a new object called updatedTask
-  const taskIndex = TaskCollectionDB.findIndex((p) => p.id === taskID); // find the index of the task to update in the TaskCollectionDB array
-  updatedTask.title = title;
-  updatedTask.description = description;
-  TaskCollectionDB[taskIndex] = updatedTask; // replace the task in the TaskCollectionDB array with the updated task
-  res.status(200).json({ task: updatedTask }); // return the updated task
-};
-const deleteTask = async (req, res, next) => {
   const taskID = req.params.taskID; // get the task id from the request params
   let task;
+  //delete the task from the database
   try {
-    task = await Task.findById(taskID); // find the task in the database
+    await Task.findByIdAndUpdate(taskID, {
+      name: "test",
+      description: "test",
+      tasks: [],
+    });
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not find a task.",
+      "Something went wrong, could not update task.",
       500
     );
     return next(error);
   }
+  res.status(200).json({ message: "Updated task." });
+};
+const deleteTask = async (req, res, next) => {
+  const taskID = req.params.taskID; // get the task id from the request params
+  let task;
   //delete the task from the database
   try {
-    await task.remove();
+    await Task.findByIdAndRemove(taskID);
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not delete task.",
