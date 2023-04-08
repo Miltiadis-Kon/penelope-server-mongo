@@ -6,7 +6,7 @@ const taskController = require("../controllers/task-controller");
 ///Define api endpoints
 //GET
 Router.get("/:taskID", taskController.getTaskByID); // get a task by id
-Router.get("/user/:uid", taskController.getTaskByUserID); // get a task by user id
+Router.get("/", taskController.getTasks); // get a task by user id
 
 //POST
 Router.post("/", taskController.createTask); // create a new task

@@ -1,13 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express(); // create express app
+const mongoose = require("mongoose");
 
 const taskRouter = require("./routes/tasks-routes");
-const MongoPractice = require("./mongo");
 app.use(bodyParser.json()); // parse requests of content-type - application/json
-
-app.post("/products", MongoPractice.createProduct);
-app.get("/products", MongoPractice.getProducts);
 
 app.use("/api/tasks/", taskRouter);
 //error handling
@@ -27,6 +24,17 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
+//Connect to the database & start the server
+mongoose
+  .connect(
+    "mongodb+srv://lms:q1w2e3r4t5@cluster0.sy4ywdt.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    console.log("Connected to database");
+    app.listen(5000, () => {
+      console.log("Server running on port 5000");
+    });
+  })
+  .catch(() => {
+    console.log("Connection failed");
+  });
