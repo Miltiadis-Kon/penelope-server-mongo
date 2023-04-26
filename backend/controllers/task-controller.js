@@ -60,7 +60,6 @@ const createTask = async (req, res, next) => {
 };
 const updateTask = async (req, res, next) => {
   const taskID = req.params.taskID; // get the task id from the request params
-  let task;
   //delete the task from the database
   try {
     await Task.findByIdAndUpdate(taskID, {
@@ -79,7 +78,6 @@ const updateTask = async (req, res, next) => {
 };
 const deleteTask = async (req, res, next) => {
   const taskID = req.params.taskID; // get the task id from the request params
-  let task;
   //delete the task from the database
   try {
     await Task.findByIdAndRemove(taskID);
