@@ -7,7 +7,7 @@ const operationController = require("../controllers/operation-controller");
 //GET
 Router.get("/:operationID", operationController.getOperationByID); // get a operation by id
 Router.get("/", operationController.getOperations); // get a operation by user id
-Router.get("/", operationController.getOperationsInTaskID); // get a operation by user id
+Router.get("/tasks/:taskID/", operationController.getOperationsInTaskID); // get a operation by user id
 //POST
 Router.post("/", operationController.createOperation); // create a new operation
 

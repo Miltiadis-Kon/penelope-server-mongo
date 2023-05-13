@@ -43,12 +43,11 @@ const getTasks = async (req, res, next) => {
 
 const createTask = async (req, res, next) => {
   // create a new task
-  const { name, description, tasks } = req.body; // get the data from the request body
+  const { name, description } = req.body; // get the data from the request body
   const createdTask = new Task({
     // create a new task object
     name,
     description,
-    tasks,
   });
   try {
     await createdTask.save(); // save the new task to the database
@@ -65,7 +64,6 @@ const updateTask = async (req, res, next) => {
     await Task.findByIdAndUpdate(taskID, {
       name: "test",
       description: "test",
-      tasks: [],
     });
   } catch (err) {
     const error = new HttpError(

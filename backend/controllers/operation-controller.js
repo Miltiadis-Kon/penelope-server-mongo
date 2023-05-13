@@ -42,17 +42,35 @@ const getOperations = async (req, res, next) => {
   res.json({ operation }); // return the task to the client
 };
 //Search operation by UserId.
-const getOperationsInTaskID = (req, res, next) => {};
+const getOperationsInTaskID = async (req, res, next) => {
+  const taskID = req.params.taskID; // get the operation id from the request params
+  let operation;
+  try {
+    operation = await Operation.find({ task_id: taskID }); // get all operation from the database
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a task.",
+      500
+    );
+    return next(error);
+  }
+  if (!operation || operation.length == 0) {
+    // if the task does not exist, throw an error
+    throw new HttpError("Could not find a task for the provided id.", 404);
+  }
+  res.json({ operation }); // return the task to the client
+};
 
 const createOperation = async (req, res, next) => {
   // create a new task
-  const { name, description, action_ids, parallelActions } = req.body; // get the data from the request body
+  const { name, description, task_id, parallelSkills, skill_ids } = req.body; // get the data from the request body
   const createdOperation = new Operation({
     // create a new task object
     name,
     description,
-    action_ids,
-    parallelActions,
+    task_id,
+    parallelSkills,
+    skill_ids,
   });
   try {
     await createdOperation.save(); // save the new task to the database

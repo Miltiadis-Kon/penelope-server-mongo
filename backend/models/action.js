@@ -8,6 +8,7 @@ const ActionSchema = new Schema({
   actionType: { type: String, required: true },
   tool_id: { type: Number, required: true },
   workspace_id: { type: Number, required: true },
+  operation_id: { type: String, required: true },
 });
 
 //Create Model from Schema and export

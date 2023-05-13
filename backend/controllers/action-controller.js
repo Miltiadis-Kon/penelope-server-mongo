@@ -42,23 +42,28 @@ const getActions = async (req, res, next) => {
   res.json({ actions }); // return the action to the client
 };
 //Search action by UserId.
-const getActionsInOperationID = (req, res, next) => {
-  // get a action by user id
-  const actionID = req.params.uid; // get the user id from the request params
-  const actions = DUMMY_ACTIONS.filter((p) => {
-    // find the action with the user id provided in the request
-    return p.creator === userID; // return the action
-  });
-
-  if (!actions || actions.length == 0) {
-    // if the action does not exist, throw an error
-    throw new HttpError("Could not find a action for the provided id.", 404);
+const getActionsInOperationID = async (req, res, next) => {
+  const operationID = req.params.operationID; // get the operation id from the request params
+  let action;
+  try {
+    action = await Action.find({ operation_id: operationID }); // get all operation from the database
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a task.",
+      500
+    );
+    return next(error);
   }
-  res.json({ actions }); // return the action to the client
+  if (!action || action.length == 0) {
+    // if the task does not exist, throw an error
+    throw new HttpError("Could not find action for the provided id.", 404);
+  }
+  res.json({ action }); // return the task to the client
 };
 
 const createAction = async (req, res, next) => {
-  const { name, description, actionType, tool_id, workspace_id } = req.body; // get the data from the request body
+  const { name, description, actionType, tool_id, workspace_id, operation_id } =
+    req.body; // get the data from the request body
   const createdAction = new Action({
     // create a new action object
     name,
@@ -66,6 +71,7 @@ const createAction = async (req, res, next) => {
     actionType,
     tool_id,
     workspace_id,
+    operation_id,
   });
   try {
     await createdAction.save(); // save the new action to the database
@@ -85,7 +91,7 @@ const updateAction = async (req, res, next) => {
     await Action.findByIdAndUpdate(actionID, {
       name: "test",
       description: "test",
-      actions: [],
+      operation_id: "sdfsdf",
     });
   } catch (err) {
     const error = new HttpError(

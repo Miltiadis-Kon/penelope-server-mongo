@@ -5,8 +5,9 @@ const Schema = mongoose.Schema;
 const OperationSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  action_ids: { type: Array, required: true },
-  parallelActions: { type: Boolean, required: true },
+  parallelSkills: { type: Boolean, required: true },
+  task_id: { type: String, required: true },
+  skill_ids: [{ type: Number, required: true }],
 });
 
 //Create Model from Schema and export

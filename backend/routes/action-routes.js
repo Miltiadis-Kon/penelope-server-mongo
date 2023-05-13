@@ -7,7 +7,10 @@ const actionController = require("../controllers/action-controller");
 //GET
 Router.get("/:actionID", actionController.getActionByID); // get a action by id
 Router.get("/", actionController.getActions); // get a action by user id
-Router.get("/:taskID/", actionController.getActionsInOperationID); // get a action by operation id
+Router.get(
+  "/operations/:operationID/",
+  actionController.getActionsInOperationID
+); // get a action by operation id
 
 //POST
 Router.post("/", actionController.createAction); // create a new action
