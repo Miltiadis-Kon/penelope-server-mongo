@@ -63,7 +63,7 @@ const getOperationsInTaskID = async (req, res, next) => {
 
 const createOperation = async (req, res, next) => {
   // create a new task
-  const { name, description, task_id, parallelSkills, skill_ids } = req.body; // get the data from the request body
+  const { name, description, task_id, parallelSkills, skill_ids,position } = req.body; // get the data from the request body
   const createdOperation = new Operation({
     // create a new task object
     name,
@@ -71,6 +71,7 @@ const createOperation = async (req, res, next) => {
     task_id,
     parallelSkills,
     skill_ids,
+    position
   });
   try {
     await createdOperation.save(); // save the new task to the database

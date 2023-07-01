@@ -8,6 +8,7 @@ const OperationSchema = new Schema({
   parallelSkills: { type: Boolean, required: true },
   task_id: { type: String, required: true },
   skill_ids: [{ type: Number, required: true }],
+  position: { type: Number, required: true },
 });
 
 //Create Model from Schema and export
