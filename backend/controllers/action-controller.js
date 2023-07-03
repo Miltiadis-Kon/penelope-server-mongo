@@ -62,7 +62,7 @@ const getActionsInOperationID = async (req, res, next) => {
 };
 
 const createAction = async (req, res, next) => {
-  const { name, description, actionType, tool_id, workspace_id, operation_id } =
+  const { name, description, actionType, tool_id, workspace_id, operation_id,position } =
     req.body; // get the data from the request body
   const createdAction = new Action({
     // create a new action object
@@ -72,6 +72,7 @@ const createAction = async (req, res, next) => {
     tool_id,
     workspace_id,
     operation_id,
+    position
   });
   try {
     await createdAction.save(); // save the new action to the database
